@@ -1,7 +1,9 @@
 ﻿@using Todo.Controllers
 @using Todo.Data.Entities
 @using Todo.Services
+@using Todo.Services.Abstractions
 @model Todo.Models.TodoLists.TodoListDetailViewmodel
+@inject IGravatarService GravatarService
 
 @{
     ViewData["Title"] = $"List: {Model.Title}";
@@ -61,7 +63,14 @@
 
                         <div class="col-md-4 text-right">
                             <small>
-                                @item.ResponsibleParty.UserName
+                                @{
+                                    var gravatarUsername = await GravatarService.GetUsernameByEmailAsync(item.ResponsibleParty.Email);
+                    
+                                    var username = string.IsNullOrEmpty(gravatarUsername)
+                                        ? item.ResponsibleParty.UserName
+                                        : gravatarUsername;
+                                }
+                                @username;
 
                                 <img src="https://www.gravatar.com/avatar/@Gravatar.GetHash(item.ResponsibleParty.Email)?s=30"/>
 
