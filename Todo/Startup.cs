@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Todo.Bootstrapping.Extensions;
+using Todo.Services;
+using Todo.Services.Abstractions;
 
 namespace Todo
 {
@@ -48,6 +50,8 @@ namespace Todo
             });
 
             services.AddGravatar();
+            
+            services.AddTransient<IItemsService, ItemsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
