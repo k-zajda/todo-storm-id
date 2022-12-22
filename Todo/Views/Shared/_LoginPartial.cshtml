@@ -1,8 +1,10 @@
 @using Microsoft.AspNetCore.Identity
 @using Todo.Services
+@using Todo.Services.Abstractions
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@inject IGravatarService GravatarService
 
 @if (SignInManager.IsSignedIn(User))
 {
@@ -15,11 +17,15 @@
 
                         var iu = await UserManager.GetUserAsync(User);
                         var emailAddress = await UserManager.GetEmailAsync(iu);
-                        var gravatarhash = Gravatar.GetHash(emailAddress);
+                        var gravatarUsername = await GravatarService.GetUsernameByEmailAsync(emailAddress);
+                    
+                        var username = string.IsNullOrEmpty(gravatarUsername)
+                            ? UserManager.GetUserName(User)
+                            : gravatarUsername;
                     }
 
-                    <img src="https://www.gravatar.com/avatar/@gravatarhash?s=30" />
-                    @UserManager.GetUserName(User)
+                    <img src="https://www.gravatar.com/avatar/@Gravatar.GetHash(emailAddress)?s=30" />
+                    @username;
                 </a>
             </li>
             <li>
