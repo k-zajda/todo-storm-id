@@ -10,9 +10,17 @@ namespace Todo.Views.TodoItem
     {
         public static readonly SelectListItem[] ImportanceSelectListItems =
         {
-            new SelectListItem {Text = "High", Value = Importance.High.ToString()},
-            new SelectListItem {Text = "Medium", Value = Importance.Medium.ToString()},
-            new SelectListItem {Text = "Low", Value = Importance.Low.ToString()},
+            new() {Text = "High", Value = Importance.High.ToString()},
+            new() {Text = "Medium", Value = Importance.Medium.ToString()},
+            new() {Text = "Low", Value = Importance.Low.ToString()},
+        };
+
+        public static readonly SelectListItem[] RankSelectListItems =
+        {
+            new() { Text = "High", Value = Rank.High.ToString() },
+            new() { Text = "Moderate", Value = Rank.Moderate.ToString() },
+            new() { Text = "Low", Value = Rank.Low.ToString() },
+            new() { Text = "None", Value = Rank.None.ToString() },
         };
 
         public static List<SelectListItem> UserSelectListItems(this ApplicationDbContext dbContext)

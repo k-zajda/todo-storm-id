@@ -7,6 +7,7 @@ namespace Todo.Models.TodoLists
         public int TodoListId { get; }
         public string Title { get; }
         public int NumberOfNotDoneItems { get; }
+        
         public UserSummaryViewmodel Owner { get; }
 
         public TodoListSummaryViewmodel(int todoListId, string title, int numberOfNotDoneItems, UserSummaryViewmodel owner)

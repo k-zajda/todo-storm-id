@@ -1,5 +1,6 @@
 ﻿@using Todo.Controllers
 @using Todo.Data.Entities
+@using Todo.Models.TodoItems
 @using Todo.Services
 @model Todo.Models.TodoLists.TodoListDetailViewmodel
 
@@ -19,13 +20,22 @@
             </a>
         </li>
         
+        <li class="list-group-item">
+            
+            <div class="checkbox">
+                <label>
+                    <input asp-for="OrderByRankAscending"/>
+                    <span>Order by rank</span>
+                </label>
+            </div>
+        </li>
         
         @{
-            var itemsByImportance = Model
-                .Items
-                .OrderBy(y => y.Importance);
+            var items = Model.OrderByRankAscending
+                ? Model.Items.OrderBy(y => y.Rank)
+                : Model.Items.OrderBy(y => y.Importance);
             
-            foreach (var item in itemsByImportance)
+            foreach (var item in items)
             {
                 string contextualClass;
                 switch (item.Importance)
